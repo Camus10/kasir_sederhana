@@ -1,0 +1,13 @@
+# Ignore compiled binaries
+*.exe
+*.o
+*.out
+
+# Ignore log files
+*.log
+
+# Ignore temporary files
+*.tmp
+
+# Ignore directories
+node_modules/
