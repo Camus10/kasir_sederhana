@@ -1,0 +1,9 @@
+Cara instalasi program
+1. Download program pengolah database MySQL
+2. Jalankan script "SRU.sql" untuk mengenerate database dan table
+3. Download NodeJs terbaru
+4. Buka terminal dan arahkan pada folder "Tes Sinar Roda Utama"
+5. Ketikkan "npm install" untuk mengunduh semua library yang digunakan di server
+6. Jalankan server dengan "npm start"
+7. Optional, jika ingin melakukan pengujian api silakan import file "Sinar Roda Utama.postman_collection.json" dan "Local Development.postman_environment.json" di Postman
+8. Jalankan index.html

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Sinar Roda Utama</title>
+    <link rel="shortcut icon" href="https://images.squarespace-cdn.com/content/v1/63815cb087699e73650ce040/ab0d8ace-f3b7-4a8c-b9af-cc31d7724735/favicon.ico?format=100w" type="image/x-icon"/>
+
+    <link rel="stylesheet" href="./assets/compiled/css/app.css"/>
+    <link rel="stylesheet" href="assets/extensions/datatables.net-bs5/css/dataTables.bootstrap5.min.css"/>
+    <link rel="stylesheet" href="assets/extensions/sweetalert2/sweetalert2.min.css"/>
+  </head>
+  
+  <body>
+    <script src="assets/static/js/initTheme.js"></script>
+    <script src="assets/compiled/js/app.js"></script>
+    <script src="assets/extensions/jquery/jquery.min.js"></script>
+    <script src="assets/extensions/sweetalert2/sweetalert2.min.js"></script>
+    <script src="assets/static/js/pages/sweetalert2.js"></script>
+
+    <div id="app">
+      <div class="row">
+        <div class="col-12">
+          <center>
+            <h3>Program Kasir Sederhana</h3>
+          </center>
+        </div>
+      </div>
+
+      <div class="row match-height">
+        <div class="col-3"></div>
+        <div class="col-6">
+          <div class="card">
+            <div class="card-content">
+              <div class="card-body">
+                <form id="form-kasir" name="form-kasir">
+                  <center>
+                    <div class="row mb-2">
+                      <div class="col-md-2">
+                        <button type="button" class="btn btn-info rounded-pill" onclick="showModal()">
+                          Preview
+                        </button>
+                      </div>
+                      <div class="col-md-8">
+                      </div>
+                      <div class="col-md-2">
+                        <button type="button" class="btn btn-info rounded-pill" onclick="refreshPage()">Next</button>
+                      </div>
+                    </div>
+                  </center>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group row align-items-center">
+                        <div class="col-lg-4">
+                          <label class="col-form-label" for="no-faktur">Nomor Faktur</label>
+                        </div>
+                        <div class="col-lg-1">
+                          <label class="col-form-label">:</label>
+                        </div>
+                        <div class="col-lg-7">
+                          <input type="text" id="no-faktur" name="no-faktur" class="form-control" placeholder="Nomor Faktur" disabled/>
+                        </div>
+                      </div>
+                      <div class="form-group row align-items-center">
+                        <div class="col-lg-4">
+                          <label class="col-form-label" for="kode-kasir">Kode Kasir</label>
+                        </div>
+                        <div class="col-lg-1">
+                          <label class="col-form-label">:</label>
+                        </div>
+                        <div class="col-lg-7">
+                          <input type="text" id="kode-kasir" name="kode-kasir" class="form-control" placeholder="Kode Kasir"/>
+                        </div>
+                      </div>
+                      <div class="form-group row align-items-center">
+                        <div class="col-lg-4">
+                          <label class="col-form-label" for="nama-kasir">Nama Kasir</label>
+                        </div>
+                        <div class="col-lg-1">
+                          <label class="col-form-label">:</label>
+                        </div>
+                        <div class="col-lg-7">
+                          <input type="text" id="nama-kasir" name="nama-kasir" class="form-control" placeholder="Nama Kasir" disabled/>
+                        </div>
+                      </div>
+                      <div class="form-group row align-items-center">
+                        <div class="col-lg-4">
+                          <label class="col-form-label" for="waktu">Waktu</label>
+                        </div>
+                        <div class="col-lg-1">
+                          <label class="col-form-label">:</label>
+                        </div>
+                        <div class="col-lg-7">
+                          <input type="text" id="waktu" name="waktu" class="form-control" placeholder="Waktu" disabled/>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="divider">
+                    <div class="divider-text">Input Barang</div>
+                  </div>
+                  <button type="button" class="btn btn-primary mb-2" id="tambahItem" onclick="addRow()">Tambah</button>
+                  <!-- table striped -->
+                  <div class="table-responsive">
+                    <table class="table table-striped mb-0">
+                      <thead>
+                        <tr>
+                          <th>Kode Barang</th>
+                          <th>Nama Barang</th>
+                          <th>Harga</th>
+                          <th>Kuantitas</th>
+                          <th>Jumlah</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody id="itemsTable">
+                        <!-- Rows for items will be added dynamically using JavaScript -->
+                      </tbody>
+                    </table>
+                  </div>                
+                  <hr>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group row align-items-center">
+                        <div class="col-lg-4">
+                          <label class="col-form-label" for="total">Total</label>
+                        </div>
+                        <div class="col-lg-1">
+                          <label class="col-form-label">:</label>
+                        </div>
+                        <div class="col-lg-7">
+                          <input type="text" id="total" name="total" class="form-control" placeholder="Total" disabled/>
+                        </div>
+                      </div>
+                      <div class="form-group row align-items-center">
+                        <div class="col-lg-4">
+                          <label class="col-form-label" for="jumlahBayar">Jumlah Bayar</label>
+                        </div>
+                        <div class="col-lg-1">
+                          <label class="col-form-label">:</label>
+                        </div>
+                        <div class="col-lg-7">
+                          <input type="text" id="jumlahBayar" name="jumlahBayar" class="form-control" placeholder="Jumlah Bayar" value="0" oninput="validateInputBayar(this)"/>
+                        </div>
+                      </div>
+                      <div class="form-group row align-items-center">
+                        <div class="col-lg-4">
+                          <label class="col-form-label" for="kembali">Kembali</label>
+                        </div>
+                        <div class="col-lg-1">
+                          <label class="col-form-label">:</label>
+                        </div>
+                        <div class="col-lg-7">
+                          <input type="text" id="kembali" name="kembali" class="form-control" placeholder="Kembali" value="0" disabled/>
+                        </div>
+                      </div>
+                      <div class="form-group row align-items-center">
+                        <div class="col-lg-5">
+                        </div>
+                        <div class="col-lg-7">
+                          <button type="button" class="btn btn-success mb-2" id="cetakStruk" onclick="printReceipt()">Cetak Struk</button>
+                        </div>
+                      </div>
+                      <hr>
+                      <!-- <div id="result"></div> -->
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-3"></div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="modalDataPenjualan" tabindex="-1" aria-labelledby="modalDataPenjualanTitle" style="display: none;" aria-hidden="true">
+      <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalDataPenjualanTitle">
+              Riwayat Penjualan
+            </h5>
+            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close" onclick="closeModal()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="table-responsive">
+              <table class="table" id="dataPenjualan">
+                <thead>
+                  <tr>
+                    <th>Waktu</th>
+                    <th>Nomor Faktur</th>
+                    <th>Nama Barang</th>
+                    <th>Kuantitas</th>
+                    <th>Harga</th>
+                    <th>Jumlah</th>
+                    <th>Total</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- dynamically from api -->
+                </tbody>
+              </table>
+            </div> 
+          </div>
+          <div class="modal-footer">
+            <p>
+              Faktur penjualan tersimpan di sini dan tidak ada duplikat pada waktu penjualan yang berbeda.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.datatables.net/v/bs5/dt-1.12.1/datatables.min.js"></script>
+    <script src="index.js"></script>
+  </body>
+</html>
